@@ -39,7 +39,19 @@ function playRandomSound() {
     
     // Play the new sound
     audio.volume = 0.5; // Set volume to 50%
-    audio.play();
+    
+    // Try to play the audio
+    const playPromise = audio.play();
+    
+    if (playPromise !== undefined) {
+        playPromise.catch(error => {
+            console.log('Audio playback failed:', error);
+            // Try to play again after user interaction
+            document.addEventListener('click', () => {
+                audio.play().catch(e => console.log('Retry failed:', e));
+            }, { once: true });
+        });
+    }
 }
 
 function shootConfetti() {
