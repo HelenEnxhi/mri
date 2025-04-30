@@ -26,7 +26,17 @@ function containsAngryWords(message) {
     return angryWords.some(word => message.toLowerCase().includes(word));
 }
 
+function playRandomSound() {
+    const sounds = ['rockSound', 'happySound', 'danceSound'];
+    const randomSound = sounds[Math.floor(Math.random() * sounds.length)];
+    const audio = document.getElementById(randomSound);
+    audio.currentTime = 0;
+    audio.play();
+}
+
 function shootConfetti() {
+    playRandomSound();
+    
     const duration = 3 * 1000;
     const animationEnd = Date.now() + duration;
     const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
@@ -92,8 +102,10 @@ function sendMessage() {
             } else {
                 // Randomly choose between emojis and text replies
                 if (Math.random() < 0.5) {
+                    playRandomSound();
                     addMessage(getRandomEmojis(), 'mr-i-message');
                 } else {
+                    playRandomSound();
                     addMessage(getRandomReply(), 'mr-i-message');
                 }
             }
