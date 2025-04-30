@@ -30,8 +30,18 @@ function playRandomSound() {
     const sounds = ['rockSound', 'happySound', 'danceSound'];
     const randomSound = sounds[Math.floor(Math.random() * sounds.length)];
     const audio = document.getElementById(randomSound);
-    audio.currentTime = 0;
-    audio.play();
+    
+    // Stop any currently playing audio
+    document.querySelectorAll('audio').forEach(audio => {
+        audio.pause();
+        audio.currentTime = 0;
+    });
+    
+    // Play the new sound
+    audio.volume = 0.5; // Set volume to 50%
+    audio.play().catch(error => {
+        console.log('Audio playback failed:', error);
+    });
 }
 
 function shootConfetti() {
