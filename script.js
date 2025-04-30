@@ -39,9 +39,7 @@ function playRandomSound() {
     
     // Play the new sound
     audio.volume = 0.5; // Set volume to 50%
-    audio.play().catch(error => {
-        console.log('Audio playback failed:', error);
-    });
+    audio.play();
 }
 
 function shootConfetti() {
@@ -129,6 +127,14 @@ document.getElementById('userInput').addEventListener('keypress', function(e) {
         sendMessage();
     }
 });
+
+// Initialize audio on first user interaction
+document.addEventListener('click', function initAudio() {
+    document.querySelectorAll('audio').forEach(audio => {
+        audio.load();
+    });
+    document.removeEventListener('click', initAudio);
+}, { once: true });
 
 // Initialize the sticker as hidden
 document.addEventListener('DOMContentLoaded', function() {
